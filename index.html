@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title> David's Decorative Website </title>
+        <style>
+            body {
+                background: #d497fd;
+                color: rgb(65, 0, 119);
+                padding: 10px;
+                font-family: arial;
+            }
+            #all-contents {
+                max-width: 800px;
+                margin: auto;
+            }
+        
+            /* navigation menu */
+            nav {
+                background: rgb(39, 114, 255);
+                margin: 0 auto;
+                margin-bottom: 20px;
+                display: flex;
+                padding: 10px;
+                border-radius: 20px;
+            }
+            h1 {
+                display: flex;
+                align-items: center;
+                color: white;
+                flex: 1;
+                margin: 0;
+                font-family: cursive;
+            }
+            #nav-ul {
+                list-style-image: none;
+            }
+            .nav-li {
+                display: inline-block;
+                padding: 0 10px;
+                font-family: cursive;
+            }
+            a {
+                text-decoration: none;
+                color: #fff;
+            }
+        
+            /* main container area beneath menu */
+            main {
+                background: rgb(245, 238, 219);
+                display: flex;
+            }
+            .sidebar {
+                margin-right: 25px;
+                padding: 10px;
+            }
+            .sidebar-img {
+                width: 200px;
+                border-radius: 10px;
+                border-style: double;
+                border-color: rgb(65, 0, 119);
+                border-width: 5px;
+            }
+            .content {
+                flex: 1;
+                padding: 15px;
+                font-family: cursive;
+            }
+            #interests {
+                border: 4px silver ridge;
+                padding: 8px;
+            }
+            h2, h3 {
+                margin: 0px;
+            }
+        </style>
+    </head>
+    
+    <body>
+        <!-- All content goes here -->
+        <div id="all-contents">
+            <nav>
+                <h1> David's Decorative Website </h1>
+                <ul id="nav-u1">
+                    <li class="nav-li">
+                        <a href="index.html"> Home </a>
+                    </li>
+                    <li class="nav-li">
+                        <a href="portfolio.html"> Portfolio </a>
+                    </li>
+                </ul>
+            </nav>
+            <main>
+                <!-- Sidebar section -->
+                <div class="sidebar">
+                    <img class="sidebar-img" src="https://i.ibb.co/WGdCHwM/Screenshot-2021-06-04-9-32-43-AM.png">
+                </div>
+                <!-- Content section -->
+                <div class="content">
+                    <h2> David Nguyen </h2>
+                    <p> 
+                    Student at Thomas Jefferson Academy
+                    </p>
+                    <!-- Interests section -->
+                    <div id="interests">
+                        <h3> Interests </h3>
+                        <ul>
+                            <li> Drawing </li>
+                            <li> Reading </li>
+                            <li> Coding </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
