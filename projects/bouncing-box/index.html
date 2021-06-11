@@ -28,24 +28,17 @@
 		.board{
 			height: 100vh;
 			background-color: #d497fd;
-			font-size: 300%;
-			color: white;
-			text-align: center;
-			text-shadow:
-				-2px -2px black,  
-  			  	2px -2px black,
-   				-2px 2px black,
-    			 2px 2px black;
 		}
 		.clicks{
-			font-size: 300%;
+			font-size: 1000%;
 			color: white;
 			text-align: center;
 			text-shadow:
 				-2px -2px black,  
   			  	2px -2px black,
    				-2px 2px black,
-    			 2px 2px black;
+    			2px 2px black;
+			top: 5000px;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -101,7 +94,7 @@
 			var colorStr;									//does work/not necessary (Challenge 4)
 			var randNum = Math.random() * boardWidth;		//random number for X values (Challenge 3)
 			var randNumY = Math.random() * boardHeight;		//random number for Y values (Challenge 3)
-			var clicksRemaining = 10 						//Challeng
+			var clicksRemaining = 10 						//Challenge 6
 			/*
 			Challenge 6 - Every time the board is clicked, call the handleBoxClick function
 			*/
@@ -131,8 +124,8 @@
 			turn it around! 
 			*/
 			function update() {
-				positionX = positionX + speed;
-				positionY = positionY + speedY;
+				positionX += speed;
+				positionY += speedY;
 				moveBoxTo(positionX, positionY);
 				if (positionX > boardWidth) {
 					speed = -speed;
@@ -156,23 +149,23 @@
 			function handleBoxClick() {
 				positionX = randNum;
 				positionY = randNumY;
-				points = points + 1;
+				points += 1;
 				changeBoxText(points);
-				clicksRemaining = clicksRemaining + 1
+				clicksRemaining += 1
 				if (speed > 0) {
-					speed = speed + 3;
+					speed += 3;
 				}
 				else {
-					speed = speed - 3;
+					speed -= 3;
 				}
 				if (speedY > 0) {
-					speedY = speedY + 3;
+					speedY += 3;
 				}
 				else {
-					speedY = speedyY -3;
+					speedY -= 3;
 				}
 
-				box.css('background-color', colorStr); //This doesn't work? (Challenge 4)
+				background.css('background-color', colorStr); //This doesn't work? (Challenge 4)
 
 			}
 
@@ -180,7 +173,7 @@
 			This function counts the clicks that miss the smiley face and click on the board
 			*/
 			function handleBoardClick() {
-				clicksRemaining = clicksRemaining - 1;
+				clicksRemaining -= 1;
 				clicks.text(clicksRemaining);
 			}
 
@@ -191,7 +184,7 @@
 				function endgame() {
 				clearInterval(interval)
 				};
-				clicks.text("Game Over!");
+				clicks.text("Game Over!");	
 			}
 		})()
 	</script>
