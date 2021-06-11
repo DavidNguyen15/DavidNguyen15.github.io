@@ -31,6 +31,21 @@
 			font-size: 300%;
 			color: white;
 			text-align: center;
+			text-shadow:
+				-2px -2px black,  
+  			  	2px -2px black,
+   				-2px 2px black,
+    			 2px 2px black;
+		}
+		.clicks{
+			font-size: 300%;
+			color: white;
+			text-align: center;
+			text-shadow:
+				-2px -2px black,  
+  			  	2px -2px black,
+   				-2px 2px black,
+    			 2px 2px black;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -39,7 +54,7 @@
 <body class="board">
 	<!-- HTML for the box -->
 	<div class="box">?</div>
-
+	<div class="clicks">10</div> 
 	<script>
 		(function(){
 			'use strict'
@@ -51,6 +66,7 @@
 			
 			var box = jQuery('.box');	// reference to the HTML .box element
 			var board = jQuery('.board');	// reference to the HTML .board element
+			var clicks = jQuery('.clicks'); // reference to the .clicks element (Challenge 6)
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
@@ -85,8 +101,7 @@
 			var colorStr;									//does work/not necessary (Challenge 4)
 			var randNum = Math.random() * boardWidth;		//random number for X values (Challenge 3)
 			var randNumY = Math.random() * boardHeight;		//random number for Y values (Challenge 3)
-			var clicksRemaining = 10 						//Challenge 6
-
+			var clicksRemaining = 10 						//Challeng
 			/*
 			Challenge 6 - Every time the board is clicked, call the handleBoxClick function
 			*/
@@ -96,7 +111,7 @@
 			Challenge 6 - changes the text displayed on the Board
 			*/
 			function changeBoardTest(newClicks) {
-				board.text(newClicks);
+				clicks.text(newClicks);
 			}
 
 			/* 
@@ -143,6 +158,7 @@
 				positionY = randNumY;
 				points = points + 1;
 				changeBoxText(points);
+				clicksRemaining = clicksRemaining + 1
 				if (speed > 0) {
 					speed = speed + 3;
 				}
@@ -165,17 +181,17 @@
 			*/
 			function handleBoardClick() {
 				clicksRemaining = clicksRemaining - 1;
-				board.text(clicksRemaining);
+				clicks.text(clicksRemaining);
 			}
 
 			/* 
-			When there's zero clicks remaining, it's game over! (Probably be wrong!)
+			When there's zero clicks remaining, it's game over! (Below does now work)
 			*/
 			if (clicksRemaining === 0) {
 				function endgame() {
 				clearInterval(interval)
 				};
-				board.text("Game Over!");
+				clicks.text("Game Over!");
 			}
 		})()
 	</script>
