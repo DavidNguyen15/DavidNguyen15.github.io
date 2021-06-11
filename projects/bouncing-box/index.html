@@ -6,23 +6,30 @@
 	<script src="jquery.min.js"></script>
 	<style>
 		.box {
-			width: 70px;
-			height: 70px;
-			background: url(http://cdn.shopify.com/s/files/1/1061/1924/products/Smiling_Face_Emoji_grande.png?v=1571606036);
-			font-size: 300%;
+			width: 100px;
+			height: 100px;
+			background-size: cover;
+			background-image: url(http://cdn.shopify.com/s/files/1/1061/1924/products/Smiling_Face_Emoji_grande.png?v=1571606036);
 			text-align: center;
 			color: rgb(0, 0, 0);
+			text-shadow:
+				-5px -5px white,  
+  			  	5px -5px white,
+   				-5px 5px white,
+    			 5px 5px white;
 			display: block;
 			position: absolute;
 			top: 100px;
 			left: 100px;  /* <--- Change me! */
-			border-style: double;
-			border-color: rgb(65, 0, 119);
-			background-size: cover;
+			border-radius: 50%;
+			
+			
 		}
 		.board{
 			height: 100vh;
 			background-color: #d497fd;
+			font-size: 300%;
+			color: white;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -46,7 +53,7 @@
 			var boardWidth = board.width();	// the maximum X-Coordinate of the screen
 
 			// Every 50 milliseconds, call the update Function (see below)
-			setInterval(update, 50);
+			var interval = setInterval(update, 50);
 			
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
@@ -61,7 +68,6 @@
 			function changeBoxText(newText) {
 				box.text(newText);
 			}
-
 			//////////////////////////////////////////////////////////////////
 			/////////////////// YOUR CODE BELOW HERE /////////////////////////
 			//////////////////////////////////////////////////////////////////
@@ -75,14 +81,26 @@
 			var boardHeight = jQuery(window).height();
 			var positionX = 0;
 			var positionY = 0;
-			var colorStr;
-			var randNum;
-			var randNumY;
-			var randNum = Math.random() * boardWidth;
-				var randNumY = Math.random() * boardHeight;
+			var colorStr;									//does work/not necessary (Challenge 4)
+			var randNum = Math.random() * boardWidth;		//random number for X values (Challenge 3)
+			var randNumY = Math.random() * boardHeight;		//random number for Y values (Challenge 3)
+			var clicksRemaining = 10 						//Challenge 6
+
+			/*
+			Challenge 6 - Every time the board is clicked, call the handleBoxClick function
+			*/
+			board.on('click', handleBoardClick);
+
+			/*
+			Challenge 6 - changes the text displayed on the Board
+			*/
+			function changeBoardTest(newClicks) {
+				board.text(newClicks);
+			}
 
 			/* 
-			This function generates a random number from 0 to 255 for the box color.
+			Challenge 4 - This function generates a random number from 0 to 255 for the box color 
+			(doesn't work?)
 			*/
 			function getRandomColor() {
 				var x = Math.random() * 256;
@@ -112,7 +130,7 @@
 				if (positionY < 0) {
 					speedY = -speedY;
 				}
-			};
+			}
 
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
@@ -124,12 +142,32 @@
 				positionY = randNumY;
 				points = points + 1;
 				changeBoxText(points);
-				speed = speed + 3;
-				speedY = speedY + 3;
-				box.css('background-color', colorStr);
+				if (speed > 0) {
+					speed = speed + 3;
+				}
+				else {
+					speed = speed - 3;
+				}
+				if (speedY > 0) {
+					speedY = speedY + 3;
+				}
+				else {
+					speedY = speedyY -3;
+				}
 
-			};
-		})();
+				box.css('background-color', colorStr); //This doesn't work? (Challenge 4)
+
+			}
+			function handleBoardClick() {
+				clicksRemaining = clicksRemaining - 1;
+				board.text(clicksRemaining);
+			}
+			if (clicksRemaining === 0) {
+				function endgame() {
+				clearInterval(interval);
+				}
+			}
+		})()
 	</script>
 </body>
 </html>
