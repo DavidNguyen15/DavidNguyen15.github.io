@@ -30,6 +30,7 @@
 			background-color: #d497fd;
 			font-size: 300%;
 			color: white;
+			text-align: center;
 		}
 	</style>
 	<!-- 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -158,14 +159,23 @@
 				box.css('background-color', colorStr); //This doesn't work? (Challenge 4)
 
 			}
+
+			/* 
+			This function counts the clicks that miss the smiley face and click on the board
+			*/
 			function handleBoardClick() {
 				clicksRemaining = clicksRemaining - 1;
 				board.text(clicksRemaining);
 			}
+
+			/* 
+			When there's zero clicks remaining, it's game over! (Probably be wrong!)
+			*/
 			if (clicksRemaining === 0) {
 				function endgame() {
-				clearInterval(interval);
-				}
+				clearInterval(interval)
+				};
+				board.text("Game Over!");
 			}
 		})()
 	</script>
