@@ -8,16 +8,17 @@
 		.box {
 			width: 70px;
 			height: 70px;
-			background-color: rgb(39, 114, 255);
+			background: url(http://cdn.shopify.com/s/files/1/1061/1924/products/Smiling_Face_Emoji_grande.png?v=1571606036);
 			font-size: 300%;
 			text-align: center;
-			color: white;
+			color: rgb(0, 0, 0);
 			display: block;
 			position: absolute;
 			top: 100px;
 			left: 100px;  /* <--- Change me! */
 			border-style: double;
 			border-color: rgb(65, 0, 119);
+			background-size: cover;
 		}
 		.board{
 			height: 100vh;
@@ -50,7 +51,7 @@
 			// Every time the box is clicked, call the handleBoxClick Function (see below)
 			box.on('click', handleBoxClick);
 
-			// moves the Box to a new position on the screen along the X-Axis
+			// moves the Box to a new position on the screen along the X-Axis (and the Y-Axis now)
 			function moveBoxTo(newPositionX, newPositionY) {
 				box.css("left", newPositionX);
 				box.css("top", newPositionY);
@@ -72,19 +73,21 @@
 			var speed = 10;
 			var speedY = 10;
 			var boardHeight = jQuery(window).height();
-			var randNum = Math.random() * boardWidth;
-			var randNumY = Math.random() * boardHeight;
-			var positionX = randNum;
-			var positionY = randNumY;
+			var positionX = 0;
+			var positionY = 0;
 			var colorStr;
+			var randNum;
+			var randNumY;
+			var randNum = Math.random() * boardWidth;
+				var randNumY = Math.random() * boardHeight;
 
 			/* 
 			This function generates a random number from 0 to 255 for the box color.
 			*/
 			function getRandomColor() {
-				var x = Math.floor(Math.random() * 256);
-   				var y = Math.floor(Math.random() * 256);
-   		 		var z = Math.floor(Math.random() * 256);
+				var x = Math.random() * 256;
+   				var y = Math.random() * 256;
+   		 		var z = Math.random() * 256;
     			var colorStr = "rgb(" + x + "," + y + "," + z + ")";
    			}
 
