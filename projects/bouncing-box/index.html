@@ -10,38 +10,33 @@
 			height: 100px;
 			background-size: cover;
 			background-image: url(http://cdn.shopify.com/s/files/1/1061/1924/products/Smiling_Face_Emoji_grande.png?v=1571606036);
-			filter: brightness(110%);
+			filter: brightness(100%) hue-rotate(0deg);
 			text-align: center;
 			color: rgb(0, 0, 0);
 			font-size: 500%;
 			text-shadow:
-				-5px -5px white,  
-  			  	5px -5px white,
-   				-5px 5px white,
-    			 5px 5px white;
+				-3px -3px white,  
+  			  	3px -3px white,
+   				-3px 3px white,
+    			 3px 3px white;
 			display: block;
 			position: absolute;
 			top: 100px;
 			left: 100px;  /* <--- Change me! */
 			border-radius: 50%;
-			
-			
 		}
 		.board{
 			height: 100vh;
-			background-image: url(https://cdn.cultofmac.com/wp-content/uploads/2015/12/IMG_0015.jpg);
+			background-image: 
+				url(https://cdn.cultofmac.com/wp-content/uploads/2015/12/IMG_0015.jpg);
 			background-size: 100%;
-			filter: invert(100%);
+			background-blend-mode: overlay;
 		}
 		.clicks{
 			font-size: 1000%;
 			color: white;
 			text-align: center;
-			text-shadow:
-				-2px -2px black,  
-  			  	2px -2px black,
-   				-2px 2px black,
-    			2px 2px black;
+			filter: drop-shadow(5px 5px 5px black);
 			top: 5000px;
 		}
 	</style>
@@ -51,7 +46,7 @@
 <body class="board">
 	<!-- HTML for the box -->
 	<div class="box">?</div>
-	<div class="clicks">10</div> 
+	<div class="clicks">10</div>
 	<script>
 		(function(){
 			'use strict'
@@ -95,10 +90,8 @@
 			var boardHeight = jQuery(window).height();
 			var positionX = 0;
 			var positionY = 0;
-			var colorStr;									//does work/not necessary (Challenge 4)
-			var randNum = Math.random() * boardWidth;		//random number for X values (Challenge 3)
-			var randNumY = Math.random() * boardHeight;		//random number for Y values (Challenge 3)
 			var clicksRemaining = 10 						//Challenge 6
+
 			/*
 			Challenge 6 - Every time the board is clicked, call the handleBoxClick function
 			*/
@@ -113,14 +106,40 @@
 
 			/* 
 			Challenge 4 - This function generates a random number from 0 to 255 for the box color 
-			(doesn't work?)
 			*/
 			function getRandomColor() {
-				var x = Math.random() * 256;
-   				var y = Math.random() * 256;
-   		 		var z = Math.random() * 256;
-    			var colorStr = "rgb(" + x + "," + y + "," + z + ")";
-   			}
+				return Math.floor(Math.random()*255);
+			}
+			
+			/*
+			Challenege 4 - This function generates a random number from 0 to 360 for the color change
+			*/
+			function getRandomDegree() {
+				return Math.floor(Math.random()*360);
+			}
+
+			/*
+			Challenege 4 - This function generates a random number from 0 to 100 for percentages
+			*/
+			function getRandomPercentage() {
+				return Math.floor(Math.random()*100 + 75);
+			}
+
+			/* 
+			Challenege 3 - This function generates a random number from 0 to the boardWidth for
+			the x-coordinates
+			*/
+			function getRandomX() {
+				return Math.random() * boardWidth;
+			}
+
+			/* 
+			Challenege 3 - This function generates a random number from 0 to boardHeight for the 
+			y-coordinates
+			*/
+			function getRandomY() {
+				return Math.random() * boardHeight;
+			}
 
 			/* 
 			This Function will be called 20 times/second. Each time it is called,
@@ -147,14 +166,17 @@
 					endgame();
 					clicks.text("Game Over!");	
 				}
+				getRandomX();
+				getRandomY();
 			}
-
 			/* 
 			This Function will be called each time the box is clicked. Each time it is called,
 			it should increase the points total, increase the speed, and move the box to
 			the left side of the screen.
 			*/
 			function handleBoxClick() {
+				var randNum = getRandomX();		//random number for X values (Challenge 3)
+				var randNumY = getRandomY();		//random number for Y values (Challenge 3)
 				positionX = randNum;
 				positionY = randNumY;
 				points += 1;
@@ -171,10 +193,13 @@
 				}
 				else {
 					speedY -= 3;
+					
 				}
-
-				background.css('background-color', colorStr); //This doesn't work? (Challenge 4)
-
+				document.querySelector(".box").style.filter = "brightness(" + getRandomPercentage() + "%) hue-rotate(" + getRandomDegree() + "deg)";
+				if (points % 3 === 0) {			//increases speed after 3 points
+					speed += 5;
+					document.querySelector(".board").style.backgroundImage = "linear-gradient(rgb(" + getRandomColor() + "," + getRandomColor() + "," + getRandomColor() + "), rgb(" + getRandomColor() + "," + getRandomColor() + "," + getRandomColor() + ")), url(https://cdn.cultofmac.com/wp-content/uploads/2015/12/IMG_0015.jpg)";
+				}
 			}
 
 			/* 
