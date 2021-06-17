@@ -29,8 +29,13 @@ var background = function (window) {
         var tree;
         var buildings = [];
         var windows = [];
-        var windowsB = [];
-        var windowsC = [];
+        var silhouettes = [];
+        function getStarColor() {                           // for random star color
+            return Math.ceil(Math.random()*140+45);
+        }
+        function getStarRadius() {
+            return Math.ceil(Math.random()*5);
+        }
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
         function render() {
@@ -45,8 +50,8 @@ var background = function (window) {
 
             // TODO: 3 - Add a moon and starfield
             // below creates the starfield
-                for (var i = 0; i < 100; i++) {
-                    var circle = draw.circle(3,'white','LightGray');
+                for (var i = 0; i < 150; i++) {
+                    var circle = draw.circle(getStarRadius(),'white','rgb(' + getStarColor() + ',36,199)', 3);
                     circle.x = canvasWidth*Math.random();
                      circle.y = groundY*Math.random();
                     background.addChild(circle);
@@ -60,9 +65,17 @@ var background = function (window) {
             background.addChild(moon);
 
             // TODO 5: Part 1 - Add buildings!     Q: This is before TODO 4 for a reason! Why?
+            for(var i=0;i<19;i++) {
+                var silhouetteHeight = Math.abs(Math.ceil(groundY - Math.random()*150)-200);
+                var silhouette = draw.rect(75,silhouetteHeight, 'rgb(40,20,40)');
+                silhouette.x =75*i;
+                silhouette.y = groundY-silhouetteHeight;
+                background.addChild(silhouette);
+                silhouettes.push(silhouette);
+            }
             for(var i=0;i<8;i++) {
-                var buildingHeight = Math.abs(Math.ceil(groundY - Math.random()*300 - 50));
-                var building = draw.rect(100,buildingHeight,'navy','lightGray',4);
+                var buildingHeight = Math.abs(Math.ceil(groundY - Math.random()*150)-50);
+                var building = draw.rect(100,buildingHeight,'rgb(86,0,100)','rgb(185, 40, 255)',4);
                 building.x = 200*i+25;
                 building.y = groundY-buildingHeight;
                 background.addChild(building);
@@ -71,7 +84,7 @@ var background = function (window) {
                     var windowHeight = 50;
                     var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
                     window.x = 200*i+45;
-                    window.y = groundY-windowHeight;
+                    window.y = groundY-windowHeight-5;
                     background.addChild(window);
                     windows.push(window);
                 }
@@ -79,7 +92,7 @@ var background = function (window) {
                     var windowHeight = 50;
                     var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
                     window.x = 200*i+85;
-                    window.y = groundY-windowHeight;
+                    window.y = groundY-windowHeight-5;
                     background.addChild(window);
                     windows.push(window);
                 }
@@ -96,6 +109,22 @@ var background = function (window) {
                     var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
                     window.x = 200*i+85;
                     window.y = groundY-windowHeight-windowHeight-20;
+                    background.addChild(window);
+                    windows.push(window);
+                }
+                if (buildingHeight > 200) {
+                    var windowHeight = 50;
+                    var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
+                    window.x = 200*i+45;
+                    window.y = groundY-windowHeight-windowHeight-20-windowHeight-20;
+                    background.addChild(window);
+                    windows.push(window);
+                }
+                if (buildingHeight > 200) {
+                    var windowHeight = 50;
+                    var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
+                    window.x = 200*i+85;
+                    window.y = groundY-windowHeight-windowHeight-20-windowHeight-20;
                     background.addChild(window);
                     windows.push(window);
                 }
@@ -116,7 +145,6 @@ var background = function (window) {
                     windows.push(window);
                 }
             }
-            
             // TODO 4: Part 1 - Add a tree
             tree = draw.bitmap('img/tree.png');
             tree.x = 500;
@@ -133,6 +161,15 @@ var background = function (window) {
             var canvasWidth = app.canvas.width;
             var canvasHeight = app.canvas.height;
             var groundY = ground.y;
+
+            // below moves the silhouettes
+            for (var i=0; i<silhouettes.length;i++) {
+                var eachElementC = silhouettes[i];
+                eachElementC.x -=0.25;
+                if (eachElementC.x < -100) {
+                    eachElementC.x = canvasWidth;
+                }
+            }
             
             // TODO 4: Part 2 - Move the tree!
             tree.x = tree.x - 5;
