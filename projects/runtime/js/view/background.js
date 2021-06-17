@@ -128,22 +128,6 @@ var background = function (window) {
                     background.addChild(window);
                     windows.push(window);
                 }
-                if (buildingHeight > 200) {
-                    var windowHeight = 50;
-                    var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
-                    window.x = 200*i+45;
-                    window.y = groundY-windowHeight-windowHeight-20-windowHeight-20;
-                    background.addChild(window);
-                    windows.push(window);
-                }
-                if (buildingHeight > 200) {
-                    var windowHeight = 50;
-                    var window = draw.rect(20, windowHeight, 'yellow', 'brown', 2);
-                    window.x = 200*i+85;
-                    window.y = groundY-windowHeight-windowHeight-20-windowHeight-20;
-                    background.addChild(window);
-                    windows.push(window);
-                }
             }
             // TODO 4: Part 1 - Add a tree
             tree = draw.bitmap('img/tree.png');
