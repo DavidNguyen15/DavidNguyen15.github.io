@@ -26,7 +26,9 @@ var background = function (window) {
         var background;
         
         // ANIMATION VARIABLES HERE:
+        var bar;
         var tree;
+        var lines = [];
         var buildings = [];
         var windows = [];
         var silhouettes = [];
@@ -134,7 +136,43 @@ var background = function (window) {
             tree.x = 500;
             tree.y = 70;
             background.addChild(tree);
-            
+
+            // below creates the bar for the points
+            bar = draw.rect(400, 30, 'lightGray', 'white', 1);
+            bar.x = 1100;
+            bar.y = 0;
+            background.addChild(bar);
+
+            // below creates the arrow heads and arrow feathers
+            function createLine(x,y) {
+                var line = draw.line(x-12,y+12, x+10,y-10, 'blue', 7);
+                background.addChild(line);
+                lines.push(line);
+                var lineB = draw.line(x-10,y+10, x+15, y+27, 'blue', 7);
+                background.addChild(lineB);
+                lines.push(lineB);
+                var lineC = draw.line(x+40, y+12, x+52, y, 'lightBlue', 4);
+                background.addChild(lineC);
+                lines.push(lineC);
+                var lineD = draw.line(x+42, y+10, x+52, y+24, 'lightBlue', 4);
+                background.addChild(lineD);
+                lines.push(lineD);
+                var lineE = draw.line(x+50, y+12, x+62, y, 'lightBlue', 4);
+                background.addChild(lineE);
+                lines.push(lineE);
+                var lineF = draw.line(x+52, y+10, x+62, y+24, 'lightBlue', 4);
+                background.addChild(lineF);
+                lines.push(lineF);
+                var lineG = draw.line(x+60, y+12, x+72, y, 'lightBlue', 4);
+                background.addChild(lineG);
+                lines.push(lineG);
+                var lineH = draw.line(x+62, y+10, x+72, y+24, 'lightBlue', 4);
+                background.addChild(lineH);
+                lines.push(lineH);
+            }
+            createLine(550, 200);
+            createLine(650, 200);
+            createLine(1200, 200);
         } // end of render function - DO NOT DELETE
         
         
@@ -178,8 +216,11 @@ var background = function (window) {
                     eachElement.x = canvasWidth;
                 }
             }
-            
-
+            // below moves the arrow heads/arrow feathers
+            for (var i=0; i<24; i++) {
+                var eachElement = lines[i];
+                eachElement.x -= 2;
+            }
         } // end of update function - DO NOT DELETE
         
         
