@@ -18,9 +18,13 @@ var level01 = function (window) {
             "number": 1, 
             "speed": -3,
             "gameItems": [
-                { "type": "sawblade", "x": 400, "y": groundY },
-                { "type": "sawblade", "x": 600, "y": groundY },
-                { "type": "sawblade", "x": 900, "y": groundY },
+                { "type": "sawblade", "x": 400, "y": 300 },
+                { "type": "sawblade", "x": 800, "y": 300 },
+                { "type": "sawblade", "x": 1000, "y": 300 },
+                { "type": "sawblade", "x": 1400, "y": 300 },
+                { "type": "arrow", "x": 550, "y": 200 },
+                { "type": "arrow", "x": 650, "y": 200 },
+                { "type": "arrow", "x": 1200, "y": 200},
             ]
         };
         window.levelData = levelData;
