@@ -32,11 +32,18 @@ var background = function (window) {
         var buildings = [];
         var windows = [];
         var silhouettes = [];
+        var rectangles = [];
         function getStarColor() {                           // for random star color
             return Math.ceil(Math.random()*140+45);
         }
         function getStarRadius() {
             return Math.ceil(Math.random()*5);
+        }
+        function getRandomNumA() {
+            return Math.ceil(Math.random()*75+25);
+        }
+        function getRandomNumB() {
+            return Math.ceil(Math.random()*20+5);
         }
         // called at the start of game and whenever the page is resized
         // add objects for display in background. draws each image added to the background once
@@ -44,20 +51,36 @@ var background = function (window) {
             background.removeAllChildren();
 
             // TODO: 2 - Part 2
-            // this fills the background with a lavender color
+            // this fills the background with a gradient from black to purple
             // you should modify this to suit your game
-            var backgroundFill = draw.rect(canvasWidth,groundY, 'black');
-            background.addChild(backgroundFill);
 
+            for (var i = 0; i<101; i++) {
+                var backgroundGradient = draw.rect(canvasWidth, 3, 'rgb(' + i*160/100 + ', 0, ' + i*255/100 + ')');
+                backgroundGradient.x = 0;
+                backgroundGradient.y = i*3;
+                background.addChild(backgroundGradient);
+            }
 
+            //below provides the screensaver
+            var screensaverFill = draw.rect(canvasWidth, canvasHeight - groundY, 'rgb(40,20,40)');
+            screensaverFill.x = 0;
+            screensaverFill.y = groundY;
+            background.addChild(screensaverFill);
+            for (var i = 0; i < 50; i++) {
+                var rectangle = draw.rect(getRandomNumA(), getRandomNumB(), 'rgb(' + getStarColor() + ',36,199)', 'white', getStarRadius());
+                rectangle.x = canvasWidth*Math.random();
+                rectangle.y = canvasHeight-groundY*Math.random()+5;
+                background.addChild(rectangle);
+                rectangles.push(rectangle);
+            }
             // TODO: 3 - Add a moon and starfield
             // below creates the starfield
-                for (var i = 0; i < 150; i++) {
-                    var circle = draw.circle(getStarRadius(),'white','rgb(' + getStarColor() + ',36,199)', 3);
-                    circle.x = canvasWidth*Math.random();
-                     circle.y = groundY*Math.random();
-                    background.addChild(circle);
-                }
+            for (var i = 0; i < 150; i++) {
+                var circle = draw.circle(getStarRadius(),'white','rgb(' + getStarColor() + ',36,199)', 3);
+                circle.x = canvasWidth*Math.random();
+                circle.y = groundY*Math.random()-5;
+                background.addChild(circle);
+            }
             // below creates the moon
             var moon = draw.bitmap('img/moon.png');
             moon.x = 1000;
@@ -144,35 +167,7 @@ var background = function (window) {
             background.addChild(bar);
 
             // below creates the arrow heads and arrow feathers
-            function createLine(x,y) {
-                var line = draw.line(x-12,y+12, x+10,y-10, 'blue', 7);
-                background.addChild(line);
-                lines.push(line);
-                var lineB = draw.line(x-10,y+10, x+15, y+27, 'blue', 7);
-                background.addChild(lineB);
-                lines.push(lineB);
-                var lineC = draw.line(x+40, y+12, x+52, y, 'lightBlue', 4);
-                background.addChild(lineC);
-                lines.push(lineC);
-                var lineD = draw.line(x+42, y+10, x+52, y+24, 'lightBlue', 4);
-                background.addChild(lineD);
-                lines.push(lineD);
-                var lineE = draw.line(x+50, y+12, x+62, y, 'lightBlue', 4);
-                background.addChild(lineE);
-                lines.push(lineE);
-                var lineF = draw.line(x+52, y+10, x+62, y+24, 'lightBlue', 4);
-                background.addChild(lineF);
-                lines.push(lineF);
-                var lineG = draw.line(x+60, y+12, x+72, y, 'lightBlue', 4);
-                background.addChild(lineG);
-                lines.push(lineG);
-                var lineH = draw.line(x+62, y+10, x+72, y+24, 'lightBlue', 4);
-                background.addChild(lineH);
-                lines.push(lineH);
-            }
-            createLine(550, 200);
-            createLine(650, 200);
-            createLine(1200, 200);
+
         } // end of render function - DO NOT DELETE
         
         
@@ -184,6 +179,22 @@ var background = function (window) {
             var canvasHeight = app.canvas.height;
             var groundY = ground.y;
 
+            // belows moves the screensaver
+            for (var i=0; i<rectangles.length; i++) {
+                var eachElement = rectangles[i];
+                if (i%2 === 0) {
+                    eachElement.x -= Math.random()*4+0.5;
+                }
+                else {
+                    eachElement.x += Math.random()*4+0.5;
+                }
+                if (eachElement.x < -100) {
+                    eachElement.x = canvasWidth+100;
+                }
+                if (eachElement.x > canvasWidth+100) {
+                    eachElement.x = -100;
+                }
+            }
             // below moves the silhouettes
             for (var i=0; i<silhouettes.length;i++) {
                 var eachElementC = silhouettes[i];
@@ -217,10 +228,7 @@ var background = function (window) {
                 }
             }
             // below moves the arrow heads/arrow feathers
-            for (var i=0; i<24; i++) {
-                var eachElement = lines[i];
-                eachElement.x -= 2;
-            }
+
         } // end of update function - DO NOT DELETE
         
         
